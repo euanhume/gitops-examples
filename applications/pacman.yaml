@@ -1,0 +1,21 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: pacman
+  namespace: openshift-gitops
+spec:
+  destination:
+    namespace: pacman-gitops
+    server: https://kubernetes.default.svc
+  project: default
+  source:
+    path: ./pacman
+    repoURL: https://github.com/euanhume/gitops-examples
+    targetRevision: HEAD
+  syncPolicy:
+    syncOptions:
+    - CreateNamespace=true
+  ignoreDifferences:
+  - group: route.openshift.io
+    kind: Route
+    path: spec/host
