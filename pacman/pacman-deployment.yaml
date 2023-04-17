@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: pacman
+  name: pacman
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: pacman
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        app: pacman
+    spec:
+      containers:
+      - image: quay.io/ifont/pacman-nodejs-app
+        imagePullPolicy: Always
+        name: pacman
+        ports:
+        - containerPort: 8080
+          protocol: TCP
+        resources: {}
